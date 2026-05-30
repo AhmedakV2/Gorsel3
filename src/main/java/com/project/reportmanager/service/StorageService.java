@@ -1,5 +1,6 @@
 package com.project.reportmanager.service;
 
+import java.nio.file.StandardCopyOption;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.nio.file.Files;
@@ -15,7 +16,12 @@ public class StorageService {
     }
 
     public void save(MultipartFile file) {
-        try { Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename())); }
-        catch (Exception e) { throw new RuntimeException("Dosya yüklenemedi!"); }
+        try {
+            // Aynı isimde dosya varsa üzerine yazması için StandardCopyOption.REPLACE_EXISTING ekledik
+            Files.copy(file.getInputStream(), this.root.resolve(file.getOriginalFilename()), StandardCopyOption.REPLACE_EXISTING);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Dosya yüklenemedi: " + e.getMessage());
+        }
     }
 }

@@ -1,5 +1,8 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Rapor Yönetim Sistemi</title>
+</head>
 <body>
 <h2>Rapor Oluştur ve Dosya Yükle</h2>
 <form th:action="@{/}" th:object="${report}" method="post" enctype="multipart/form-data">
@@ -7,16 +10,11 @@
         <tr>
             <td>İsim:</td>
             <td><input type="text" th:field="*{name}" /></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Hata</td>
-        </tr>
-        <tr>
-            <td>ID:</td>
-            <td><input type="text" th:field="*{id}" /></td>
-            <td th:if="${#fields.hasErrors('id')}" th:errors="*{id}">Hata</td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Hata</td>
         </tr>
         <tr>
             <td>Dosya:</td>
-            <td><input type="file" name="file" /></td>
+            <td><input type="file" name="file" required /></td>
         </tr>
         <tr>
             <td><button type="submit">Gönder</button></td>
