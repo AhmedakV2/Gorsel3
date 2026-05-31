@@ -8,6 +8,6 @@ class ReportManagementSystemApplicationTests {
 
     @Test
     void contextLoads() {
+        // Uygulama ayağa kalkarken konfigürasyon doğruluğunu test eder.
     }
-
 }
