@@ -2,24 +2,61 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Rapor Yönetim Sistemi</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 30px; }
+        table, th, td { border: 1px solid #ccc; border-collapse: collapse; padding: 10px; }
+        th { background-color: #f4f4f4; text-align: left; }
+        .error-msg { color: red; font-size: 14px; }
+        hr { border: 0; height: 1px; background: #ccc; margin: 25px 0; }
+    </style>
 </head>
 <body>
+
 <h2>Rapor Oluştur ve Dosya Yükle</h2>
 <form th:action="@{/}" th:object="${report}" method="post" enctype="multipart/form-data">
     <table>
         <tr>
-            <td>İsim:</td>
+            <td>Rapor İsmi:</td>
             <td><input type="text" th:field="*{name}" /></td>
-            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" style="color: red;">Hata</td>
+            <td th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="error-msg">Hata</td>
         </tr>
         <tr>
-            <td>Dosya:</td>
+            <td>Yüklenecek Dosya:</td>
             <td><input type="file" name="file" required /></td>
+            <td></td>
         </tr>
         <tr>
-            <td><button type="submit">Gönder</button></td>
+            <td colspan="3"><button type="submit">Sisteme Gönder</button></td>
         </tr>
     </table>
 </form>
+
+<hr>
+
+<h2>Veritabanına Kayıtlı Rapor Listesi (PostgreSQL)</h2>
+<table style="width:50%;">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Rapor Adı</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rep : ${reports}">
+        <td th:text="${rep.id}">1</td>
+        <td th:text="${rep.name}">Örnek Veri</td>
+    </tr>
+    </tbody>
+</table>
+
+<hr>
+
+<h2>Sistemde Depolanan Dosyalar (İndirme Linkleri)</h2>
+<ul>
+    <li th:each="file : ${files}">
+        <a th:href="${file}" th:text="${file}">Dosya Bağlantısı</a>
+    </li>
+</ul>
+
 </body>
 </html>

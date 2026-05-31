@@ -13,11 +13,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity // Bu sınıfın bir veritabanı tablosu olduğunu belirtir
+@Entity
 public class Report {
 
-    @Id // Birincil anahtar (Primary Key)
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // ID'yi veritabanı otomatik versin
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotBlank(message = "Rapor adı boş olamaz")
